@@ -1,6 +1,6 @@
-
+namespace TP_Ahorcado.Models;
 using Newtonsoft.Json;
-namespace ToDoListmaster.Models;
+
 public class Palabra{
      [JsonProperty]
     public string Texto{ get; private set; }

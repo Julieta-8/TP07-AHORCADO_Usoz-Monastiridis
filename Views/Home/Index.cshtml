@@ -5,4 +5,19 @@
 <div>
     <h1>Index</h1>
     <p>Bienvenidos al sitio web de NombreProyecto</p>
+    <form method = "POST" action = '@Url.Action("Comenzar", Home)' >
+    Ingrese el nombre usuario 
+            <input type="name" name ="username" />
+    Ingrese la dificultad 
+             <input type="int" name ="dificultad" />
+
+     <input class = "submit" type="submit" value="Submit"/>      
+    </form>
+</div>
+
+<div>
+ @foreach(Usuario j in @ViewBag.Jugadores){
+<p> UserName: @j.Nombre</p>
+<p> Intentos: @j.CantidadIntentos</p>
+ }
 </div>

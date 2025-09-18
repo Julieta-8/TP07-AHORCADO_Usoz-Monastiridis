@@ -1,0 +1,14 @@
+@foreach(Char letra in @ViewBag.Palabra){
+    <p> @letra </p>
+}
+
+<form action = '' method = "POST">
+Ingrese una letra<input type= char name = letra>
+<button value= Arriesgar Letra >
+</form>
+<form action = '' method = "POST">
+Ingrese una Palabra<input type =Name name=Palabra >
+</form>
+<button value= Arriesgar Letra >
+
+<button value= Fin  action = '@Url.Action("FinJuego(intentos)",Home)' Letra >

@@ -1,6 +1,6 @@
 using Newtonsoft.Json; 
 
-namespace ToDoListmaster.Models;
+namespace TP_Ahorcado.Models;
 public static class Objeto 
 {
 public static string ObjectToString<T>(T? obj)
