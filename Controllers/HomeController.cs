@@ -12,7 +12,19 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-
+  [HttpPost]public IActionResult Comenzar(string username, int dificultad)
+{
+string palabra = ObtenerPalabraPorDificultad(dificultad);
+   
+          ViewBag.palabra = "palabra";
+        ViewBag.username = "username";
+        return View("Index");
+    }
+[HttpPost]public IActionResult FinJuego(int intentos)
+{
+        ViewBag.intentos = "intentos";
+        return View("Index");
+}
     public IActionResult Index()
     {
         return View();
