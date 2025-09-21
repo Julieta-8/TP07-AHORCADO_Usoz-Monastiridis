@@ -12,3 +12,88 @@ Ingrese una Palabra<input type =Name name=Palabra >
 <button value= Arriesgar Letra >
 
 <button value= Fin  action = '@Url.Action("FinJuego(intentos)",Home)' Letra >
+
+
+/*
+let letra = gerById(letra)
+ArriesgarLetra(letra){
+letra.InnerText = "_"
+foreach(let letra in Palabra){
+if(letra )
+}
+
+
+ let Terminado = false;
+ let Perdiste = false;
+let Completado = false;
+   
+let intentos = 0;
+let LetrasIntentadas = new List<char>();
+
+
+ Resultado(){
+  let resultado = " ";
+    foreach (let l in palabra)
+    {
+      if (!LetrasIntentadas.Contains(l))
+      {
+        InnerText.resultado += " _";
+      }
+      else
+      {
+        resultado += l;
+      }
+    }
+    if (Terminado == true)
+    {
+      resultado = "GANO";
+    }
+if (Perdiste == true)
+    {
+      resultado = "PERDIO";
+}
+return resultado;
+}
+public static void IngresoPalabra(string palabra2){
+  intentos++;
+  if(palabra == palabra2){
+      Terminado = true;
+    
+      
+  }
+  else{
+      Perdiste = true;
+  }
+}
+  public static void IngresoLetra(char letra)
+  {
+    if (!LetrasIntentadas.Contains(letra) && !Terminado)
+    {
+      intentos++;
+      LetrasIntentadas.Add(letra);
+
+      foreach (char l in palabra)
+      {
+        if (!LetrasIntentadas.Contains(l))
+        {
+          Completado = false;
+        }
+        //if (LetrasIntentadas.Contains(foreach(let l in palabra)))
+       // {
+       //   Terminado = true;
+      //  }
+     
+
+if (letras.All(letra => LetrasIntentadas.Contains(letra)))
+{
+    Terminado = true;
+}
+      }
+    }
+  }
+
+  
+}
+
+
+}*/
