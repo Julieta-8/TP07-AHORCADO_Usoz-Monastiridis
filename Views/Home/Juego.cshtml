@@ -1,6 +1,4 @@
-@foreach(Char letra in @ViewBag.Palabra){
-    <p> @letra </p>
-}
+
 
 <form action = '' method = "POST">
 Ingrese una letra<input type= char name = letra>
@@ -14,86 +12,62 @@ Ingrese una Palabra<input type =Name name=Palabra >
 <button value= Fin  action = '@Url.Action("FinJuego(intentos)",Home)' Letra >
 
 
+
+
+
+
+
+
 /*
-let letra = gerById(letra)
-ArriesgarLetra(letra){
-letra.InnerText = "_"
-foreach(let letra in Palabra){
-if(letra )
-}
+const palabra = document.getElementById("Palabra").innerText; 
+let resultado = document.getElementById("Resultado");
 
-
- let Terminado = false;
- let Perdiste = false;
-let Completado = false;
-   
+let letrasIngresadas = [];
+let letrasPalabra = palabra.split(""); 
+let terminado = false;
+let perdiste = false;
 let intentos = 0;
-let LetrasIntentadas = new List<char>();
 
+resultado.innerText = "_".repeat(palabra.length);
 
- Resultado(){
-  let resultado = " ";
-    foreach (let l in palabra)
-    {
-      if (!LetrasIntentadas.Contains(l))
-      {
-        InnerText.resultado += " _";
-      }
-      else
-      {
-        resultado += l;
-      }
-    }
-    if (Terminado == true)
-    {
-      resultado = "GANO";
-    }
-if (Perdiste == true)
-    {
-      resultado = "PERDIO";
-}
-return resultado;
-}
-public static void IngresoPalabra(string palabra2){
-  intentos++;
-  if(palabra == palabra2){
-      Terminado = true;
-    
-      
-  }
-  else{
-      Perdiste = true;
-  }
-}
-  public static void IngresoLetra(char letra)
-  {
-    if (!LetrasIntentadas.Contains(letra) && !Terminado)
-    {
-      intentos++;
-      LetrasIntentadas.Add(letra);
+function ingresoLetra(letra) {
+    if (terminado || perdiste) return;
 
-      foreach (char l in palabra)
-      {
-        if (!LetrasIntentadas.Contains(l))
-        {
-          Completado = false;
-        }
-        //if (LetrasIntentadas.Contains(foreach(let l in palabra)))
-       // {
-       //   Terminado = true;
-      //  }
+    if (!letrasIngresadas.includes(letra)) {
+        letrasIngresadas.push(letra);
+        intentos++;
+
      
+        let nuevaSalida = "";
+        for (let i = 0; i < letrasPalabra.length; i++) {
+            if (letrasIngresadas.includes(letrasPalabra[i])) {
+                nuevaSalida += letrasPalabra[i];
+            } else {
+                nuevaSalida += "_"; // guion
+            }
+        }
 
-if (letras.All(letra => LetrasIntentadas.Contains(letra)))
-{
-    Terminado = true;
-}
-      }
+        resultado.innerText = nuevaSalida;
+
+     
+        if (!nuevaSalida.includes("_")) {
+            terminado = true;
+            resultado.innerText = "¡GANÓ!";
+        } else if (intentos >= 6) { 
+            perdiste = true;
+            resultado.innerText = "PERDIÓ";
+        }
     }
-  }
-
-  
 }
 
 
+function ingresoPalabra(palabra2) {
+    intentos++;
+    if (palabra2 === palabra) {
+        terminado = true;
+        resultado.innerText = "¡GANÓ!";
+    } else {
+        perdiste = true;
+        resultado.innerText = "PERDIÓ";
+    }
 }*/
