@@ -1,20 +1,29 @@
 
-while(Terminado != true || Perdiste != true){
+<p id="Terminado"></p>
+<p id="Perdiste"></p>
+
 <h1 id="Resultado"> " "</h1>
-    <form action = 'Resultado()' method = "POST">
-        Ingrese una letra<input type= char name = letra>
-        <button value= Arriesgar Letra >
+
+while(Terminado != true || Perdiste != true){
+
+    <form action = '@Url.Action("Resultado", "Home")' method = "POST">
+        Ingrese una letra<input value=letra type= char name = letra>
+        <button value= Arriesgar Letra ></buttom>
     </form>
 
-    <form action = 'ingresoPalabra' method = "POST">
-        Ingrese una Palabra<input type =Name name=Palabra id="Palabra2" >
+    <form action = '@Url.Action("ArriesgarPalabra", "Home")' method = "POST">
+
+        Ingrese una Palabra<input value= palabra2 type =Name name=Palabra id="Palabra2" >
+         <button value= Arriesgar Plabra ></buttom>
     </form>
 
-    <button value= Arriesgar Letra >
+   
 }
 
-
-<button value= Fin  action = '@Url.Action("FinJuego(intentos)",Home)' Finalizar>
+<form method="post" action="@Url.Action("FinJuego", "Home")">
+    <input type="hidden" name="intentos" value="@Session["Intentos"]" />
+    <button type="submit">Finalizar</button>
+</form>
 
 
 
@@ -29,8 +38,8 @@ let resultado = document.getElementById("Resultado");
 
 let letrasIngresadas = [];
 let letrasPalabra = palabra.split(""); 
-let terminado = false;
-let perdiste = false;
+let terminado = document.getElementById("Terminado").innerText;
+let perdiste = document.getElementById("Perdiste").innerText;
 let intentos = 0;
 
 resultado.innerText = "_".repeat(palabra.length);
@@ -56,10 +65,10 @@ function ingresoLetra(letra) {
 
      
         if (!nuevaSalida.includes("_")) {
-            terminado = true;
+            Value.terminado = true;
             resultado.innerText = "¡GANÓ!";
         } else if (intentos >= 6) { 
-            perdiste = true;
+            Value.perdiste = true;
             resultado.innerText = "PERDIÓ";
         }
     }
@@ -69,10 +78,10 @@ function ingresoLetra(letra) {
 function ingresoPalabra(palabra2) {
     intentos++;
     if (palabra2 === palabra) {
-        terminado = true;
+        Value.terminado = true;
         resultado.innerText = "¡GANÓ!";
     } else {
-        perdiste = true;
+        Value.perdiste = true;
         resultado.innerText = "PERDIÓ";
     }
 }*/
