@@ -12,18 +12,21 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-  [HttpPost]public IActionResult Comenzar(string username, int dificultad)
+  [HttpPost]
+  public IActionResult Comenzar(string username, int dificultad)
 {
-/* Juego juego = HttpContext.Session.GetObject<Juego>("Juego");
+ Juego juego = HttpContext.Session.GetObject<Juego>("Juego");
 
     if (juego == null)
     {
-  Juego.InicializarJuego(username, dificultad);
-    
-string palabra =  CargarPalabra(dificultad);
+         juego = new Juego();
+        juego.InicializarJuego(username, dificultad);
+         HttpContext.Session.SetObject("Juego", juego);
+
+
     }
 
-    var jugador = juego.Jugadores.FirstOrDefault(j => j.Nombre == nombre);
+   var jugador = juego.Jugadores.FirstOrDefault(j => j.Nombre == username);
 
     if (jugador != null)
     {
@@ -34,24 +37,22 @@ string palabra =  CargarPalabra(dificultad);
             nombre = jugador.Nombre,
             intentos = jugador.CantidadIntentos,
             palabra = juego.PalabraActual
-        });*/
+        });
   
-
-
    
      ViewBag.palabra = "palabra";
         ViewBag.username = "username";
         return View("Index");
-    }
+    }}
 [HttpPost]public IActionResult FinJuego(int intentos)
 {
         ViewBag.intentos = "intentos";
-        Juego.FinJuego(intentos);
+        juego.FinJuego(intentos);
         return View("Index");
 }
     public IActionResult Index()
     {
-        ViewBag.Jugadores = Juego.DevolverListaUsuarios(); 
+        ViewBag.Jugadores = juego.DevolverListaUsuarios(); 
         return View();
     }
 }

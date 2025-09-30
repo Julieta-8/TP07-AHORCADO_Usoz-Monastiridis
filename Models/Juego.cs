@@ -1,24 +1,26 @@
 
 using System.Diagnostics;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 namespace TP_Ahorcado.Models;
-using Newtonsoft.Json;
-
- static class Juego{
-static public List<Palabra> ListaPalabras  = new List<Palabra>();
-static public List<Usuario> Jugadores = new List<Usuario>();
-static public Usuario JugadorActual;
 
 
+ public class Juego{
+   public List<Palabra> ListaPalabras { get; set; } = new List<Palabra>();
+    public List<Usuario> Jugadores { get; set; } = new List<Usuario>();
+    public Usuario JugadorActual { get; set; }
+    public Palabra PalabraActual { get; set; }
 
-public static void InicializarJuego(string usuario, int dificultad){
+
+
+public  void InicializarJuego(string usuario, int dificultad){
    int intentos = 0;
    
  JugadorActual = new Usuario(usuario, intentos);
- Palabra palabra = new Palabra(CargarPalabra(dificultad), dificultad);
+ PalabraActual = new Palabra(CargarPalabra(dificultad), dificultad);
     
 }
-private static string CargarPalabra(int dificultad){
+public  string CargarPalabra(int dificultad){
     Random rnd = new Random();
     int IndiceRandom = rnd.Next(0, ListaPalabras.Count);
    Palabra PalabraRandom = ListaPalabras[IndiceRandom];
@@ -28,18 +30,18 @@ private static string CargarPalabra(int dificultad){
    }
    return PalabraRandom.Texto;
 }
-static void FinJuego(int intentos){
+ public void FinJuego(int intentos){
 Jugadores.Add(JugadorActual);
 }
 
-static List<Usuario> DevolverListaUsuarios(){
-    Jugadores.Sort()
-   // List<int> numerosOrdenados = Jugadores.OrderBy(Usuario.CantidadIntentos).ToList();*//
+ public List<Usuario> DevolverListaUsuarios(){
+    Jugadores.Sort();
+   var ordenar = Jugadores.OrderBy(j => j.CantidadIntentos).ToList();
     return Jugadores;
 }
 
 
-private static void LlenarListaPalabras(){
+private  void LlenarListaPalabras(){
   // Crear palabras de dificultad 1
         Palabra Palabra1 = new Palabra("Casa", 1);
         ListaPalabras.Add(Palabra1);
