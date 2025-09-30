@@ -1,3 +1,4 @@
+
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TP_Ahorcado.Models;
@@ -12,47 +13,70 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-  [HttpPost]
-  public IActionResult Comenzar(string username, int dificultad)
-{
- Juego juego = HttpContext.Session.GetObject<Juego>("Juego");
-
-    if (juego == null)
+    [HttpPost]
+    public IActionResult Comenzar(string username, int dificultad)
     {
-         juego = new Juego();
-        juego.InicializarJuego(username, dificultad);
-         HttpContext.Session.SetObject("Juego", juego);
+        Juego juego = Objeto.StringToObject<Juego>(HttpContext.Session.GetString("Juego"));
 
-
-    }
-
-   var jugador = juego.Jugadores.FirstOrDefault(j => j.Nombre == username);
-
-    if (jugador != null)
-    {
-     
-        return Json(new
+        if (juego == null)
         {
-            existe = true,
-            nombre = jugador.Nombre,
-            intentos = jugador.CantidadIntentos,
-            palabra = juego.PalabraActual
-        });
-  
-   
-     ViewBag.palabra = "palabra";
-        ViewBag.username = "username";
+            Juego juego2 = new Juego();
+            juego2.InicializarJuego(username, dificultad);
+            HttpContext.Session.SetString("Juego", Objeto.ObjectToString(juego));
+
+
+        }
+
+          Usuario jugador = juego.Jugadores.FirstOrDefault(j => j.Nombre == username);
+    ViewBag.jugador = jugador;
+
+        if (ViewBag.jugador != null)
+        {
+
+            return Json(new
+            {
+                existe = true,
+                nombre = ViewBag.jugador.Nombre,
+                intentos = ViewBag.jugador.CantidadIntentos,
+                palabra = juego.PalabraActual
+
+            });
+
+
+            ViewBag.palabra = "palabra";
+            ViewBag.username = "username";
+
+            return View("Index");
+        }
+         else
+    {
+        // Si no existe, crear el nuevo jugador y agregarlo
+        ViewBag.jugador = new Usuario(username, 0); 
+        juego.Jugadores.Add(ViewBag.jugador);
+
+        // Guardar el juego actualizado en sesión
+        HttpContext.Session.SetString("Juego", Objeto.ObjectToString(juego));
+
+        // Mandar datos a la vista
+        ViewBag.palabra = juego.PalabraActual;
+        ViewBag.username = ViewBag.jugador.Nombre;
+        ViewBag.intentos = ViewBag.jugador.CantidadIntentos;
+
         return View("Index");
-    }}
+    }
+    }
 [HttpPost]public IActionResult FinJuego(int intentos)
 {
+        ViewBag.juego = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Juego"));
         ViewBag.intentos = "intentos";
-        juego.FinJuego(intentos);
+        ViewBag.juego.FinJuego(intentos);
         return View("Index");
 }
     public IActionResult Index()
     {
-        ViewBag.Jugadores = juego.DevolverListaUsuarios(); 
+        ViewBag.juego = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Juego"));
+         
+        ViewBag.Jugadores = ViewBag.juego.DevolverListaUsuarios(); 
         return View();
     }
 }
