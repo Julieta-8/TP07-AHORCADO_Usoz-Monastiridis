@@ -8,32 +8,37 @@
 
 
 
-
 <p id="Terminado"></p>
 <p id="Perdiste"></p>
 
-<h1 id="Resultado"> " "</h1>
+<h1 id="Resultado"></h1>
 
-while(Terminado != true || Perdiste != true){
 
-    <form action = '@Url.Action("Resultado", "Home")' method = "POST">
-        Ingrese una letra<input value=letra type= char name = letra>
-        <button value= Arriesgar Letra ></buttom>
-    </form>
+<form action="@Url.Action("Resultado", "Home")" method="POST">
+    <label>Ingrese una letra</label>
+    <input type="text" name="letra" maxlength="1" />
+    <button type="submit">Arriesgar Letra</button>
+</form>
 
-    <form action = '@Url.Action("ArriesgarPalabra", "Home")' method = "POST">
+<form action="@Url.Action("ArriesgarPalabra", "Home")" method="POST">
+    <label>Ingrese una palabra</label>
+    <input type="text" name="Palabra" id="Palabra2" />
+    <button type="submit">Arriesgar Palabra</button>
+</form>
 
-        Ingrese una Palabra<input value= palabra2 type =Name name=Palabra id="Palabra2" >
-         <button value= Arriesgar Plabra ></buttom>
-    </form>
-
-   
-}
 
 <form method="post" action="@Url.Action("FinJuego", "Home")">
-    <input type="hidden" name="intentos" value="@Session["Intentos"]" />
+    <input type="hidden" name="intentos" value="@ViewBag.intentos" />
     <button type="submit">Finalizar</button>
 </form>
+
+
+  <script src="js/script.js"></script>
+</body>
+</html>
+
+
+
 
   <script src="js/script.js"></script>
 </body>
