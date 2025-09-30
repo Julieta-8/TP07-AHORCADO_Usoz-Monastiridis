@@ -1,11 +1,12 @@
-﻿@{
+@{
     ViewData["Title"] = "Index";
 }
+<section class="index">
 
-<div>
 
-    <p>Bienvenidos al sitio web de NombreProyecto</p>
-    <form method = "POST" action = '@Url.Action("Comenzar", Home)' >
+    <p>La Horca</p>
+    <div>
+    <form method = "POST" action = "@Url.Action("FinJuego", "Home")" >
     Ingrese el nombre usuario 
             <input type="name" name ="username" />
     Ingrese la dificultad 
@@ -21,3 +22,4 @@
 <p> Intentos: @j.CantidadIntentos</p>
  }
 </div>
+</section>
