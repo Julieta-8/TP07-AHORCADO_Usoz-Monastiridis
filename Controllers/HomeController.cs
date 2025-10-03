@@ -54,9 +54,10 @@ public class HomeController : Controller
     }
 [HttpPost]public IActionResult FinJuego(int intentos)
 {
-        ViewBag.juego = Objeto.StringToObject<Juego>(HttpContext.Session.GetString("juego"));
+        Juego juego = Objeto.StringToObject<Juego>(HttpContext.Session.GetString("juego"));
         ViewBag.intentos = intentos;
-        ViewBag.juego.FinJuego(intentos);
+        juego.FinJuego(intentos);
+        HttpContext.Session.SetString("Juego", Objeto.ObjectToString(juego));
         return View("Index");
 }
     public IActionResult Index()
