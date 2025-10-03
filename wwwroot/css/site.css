@@ -24,14 +24,15 @@ footer {
 
 .index div{
 border: 5px solid #B71FDB;
-  border-radius: 5px
-background-color: #DBA51F;
-margin-left: 20%
+  border-radius: 5px;
+background-color: #f8f670;
+margin-left: 20%;
   padding: 3%;
-  shadow-box: 5px  #794086;
+  box-shadow: 5px  #794086;
 }
 label{
-color: #794086;
+color: #f0f33b;
+background-color: #794086;
   margin-bottom: 3%;
 }
 input{ padding: 1%; margin-left: 30%; border-radius: 5px }

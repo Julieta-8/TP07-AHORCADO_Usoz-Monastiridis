@@ -11,7 +11,10 @@ namespace TP_Ahorcado.Models;
     public Usuario JugadorActual { get; set; }
     public Palabra PalabraActual { get; set; }
 
-
+ public Juego()
+        {
+            LlenarListaPalabras(); 
+        }
 
 public  void InicializarJuego(string usuario, int dificultad){
    int intentos = 0;
@@ -31,13 +34,19 @@ public  string CargarPalabra(int dificultad){
    return PalabraRandom.Texto;
 }
  public void FinJuego(int intentos){
-Jugadores.Add(JugadorActual);
+ if (JugadorActual != null)
+            {
+                
+                Jugadores.Add(JugadorActual);
+                JugadorActual = null;
+                
+            }
 }
 
  public List<Usuario> DevolverListaUsuarios(){
     Jugadores.Sort();
-   var ordenar = Jugadores.OrderBy(j => j.CantidadIntentos).ToList();
-    return Jugadores;
+  return Jugadores.OrderBy(j => j.CantidadIntentos).ToList();
+    
 }
 
 

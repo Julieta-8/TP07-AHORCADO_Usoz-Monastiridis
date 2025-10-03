@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TP_Ahorcado.Models;
+using Newtonsoft.Json; 
 
 namespace TP_Ahorcado.Controllers;
 
@@ -17,19 +18,19 @@ public class HomeController : Controller
     public IActionResult Comenzar(string username, int dificultad)
     {
         Juego juego = Objeto.StringToObject<Juego>(HttpContext.Session.GetString("Juego"));
+      Usuario jugador = juego.Jugadores.FirstOrDefault(j => j.Nombre == username);
+    ViewBag.jugador = jugador;
 
-        if (juego == null)
+        if (juego == null || ViewBag.jugador == null)
         {
             Juego juego2 = new Juego();
             juego2.InicializarJuego(username, dificultad);
-            HttpContext.Session.SetString("Juego", Objeto.ObjectToString(juego));
+            HttpContext.Session.SetString("Juego", Objeto.ObjectToString(juego2));
 
-
+            return View("Juego");
         }
 
-          Usuario jugador = juego.Jugadores.FirstOrDefault(j => j.Nombre == username);
-    ViewBag.jugador = jugador;
-
+     
         if (ViewBag.jugador != null)
         {
 
@@ -46,37 +47,23 @@ public class HomeController : Controller
             ViewBag.palabra = "palabra";
             ViewBag.username = "username";
 
-            return View("Index");
+            return View("Juego");
         }
-         else
-    {
-        // Si no existe, crear el nuevo jugador y agregarlo
-        ViewBag.jugador = new Usuario(username, 0); 
-        juego.Jugadores.Add(ViewBag.jugador);
-
-        // Guardar el juego actualizado en sesión
-        HttpContext.Session.SetString("Juego", Objeto.ObjectToString(juego));
-
-        // Mandar datos a la vista
-        ViewBag.palabra = juego.PalabraActual;
-        ViewBag.username = ViewBag.jugador.Nombre;
-        ViewBag.intentos = ViewBag.jugador.CantidadIntentos;
-
+        
         return View("Index");
-    }
     }
 [HttpPost]public IActionResult FinJuego(int intentos)
 {
-        ViewBag.juego = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Juego"));
-        ViewBag.intentos = "intentos";
+        ViewBag.juego = Objeto.StringToObject<Juego>(HttpContext.Session.GetString("juego"));
+        ViewBag.intentos = intentos;
         ViewBag.juego.FinJuego(intentos);
         return View("Index");
 }
     public IActionResult Index()
     {
-        ViewBag.juego = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Juego"));
+      ViewBag.juego = Objeto.StringToObject<Juego>(HttpContext.Session.GetString("juego"));
          
         ViewBag.Jugadores = ViewBag.juego.DevolverListaUsuarios(); 
-        return View();
+        return View("Index");
     }
 }

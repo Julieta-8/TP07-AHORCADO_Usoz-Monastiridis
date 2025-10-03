@@ -23,7 +23,7 @@ function ingresoLetra(letra) {
             if (letrasIngresadas.includes(letrasPalabra[i])) {
                 nuevaSalida += letrasPalabra[i];
             } else {
-                nuevaSalida += "_"; // guion
+                nuevaSalida += "_"; 
             }
         }
 
